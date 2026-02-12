@@ -13,12 +13,10 @@
 <div id="map" style="height:400px;" class="border-4 border-emerald-600 m-4"></div>
 <img id="map_image_elem" class="m-4 border-4 border-emerald-600">
 <script>
-const path = require('path') /*npm libraries*/
-const getColors = require('get-image-colors')
+const path = require('path') /*npm packages*/
 const axios = require("axios");
-const fs = require('fs');
 const options = { /*option for get-image-colors*/
-  count: 50,
+  count: 5,
   type: 'image/jpeg'
 }
 var map = L.map('map').setView([0,0], 3);
@@ -35,18 +33,14 @@ console.log(tileX,tileY,zoom);
 let imageurl = `https://mt1.google.com/vt/lyrs=s&x=${tileX}&y=${tileY}&z=${zoom}`; /*showing the original img on the app*/
 let image_elem = document.getElementById('map_image_elem')
 image_elem.src = imageurl;
-let img_buffer = await urltobuffer(`https://mt1.google.com/vt/lyrs=s&x=${tileX}&y=${tileY}&z=${zoom}`);
-getColors(img_buffer, options).then(colors => {
-let img_colours = colors.map(color => color.hex());
-console.log(img_colours);
+let img_array = await urltouint8array(`https://mt1.google.com/vt/lyrs=s&x=${tileX}&y=${tileY}&z=${zoom}`);
 })
-}
-)
-async function urltobuffer(url) { /*turn image url to buffer so it can be used in get-image-colours using axios*/
+async function urltouint8array(url) { /*turn image url to buffer*/
   const response = await axios.get(url, {
     responseType: 'arraybuffer'
   });
-  return Buffer.from(response.data); /*turn array buffer to node js buffer*/
+  return new Uint8Array(response.data);
+  /* return Buffer.from(response.data); turn array buffer to node js buffer*/
 }
 </script>
 </body>
