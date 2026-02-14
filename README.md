@@ -1,4 +1,6 @@
 # Kolourmeans
+<img width="718" height="370" alt="Screenshot 2026-02-15 004702" src="https://github.com/user-attachments/assets/2f3ce797-3816-4348-845a-90f5b7b2b289" />
+
 An application that turns locations selected on a satellite map into colour palettes.
 # How it works!
 - The interactive map uses the javascript library [Leaflet](https://leafletjs.com/).
